@@ -3,9 +3,11 @@ using System.Collections;
 
 public class SphereMover : MonoBehaviour {
 	
-	private float speed = 8;
-	private float maxheight = 30;
-	private float minheight = 26;
+	private float speed = 3;
+	private float maxHeight = 4;
+	private float minHeight = 2;
+	private bool direction = true;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -14,11 +16,8 @@ public class SphereMover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if ((transform.position.y >= maxheight && speed > 0) || (transform.position.y <= minheight && speed < 0))
-			speed = -speed;
-		
-		transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * speed, transform.position.z);
-	
+		if ((transform.position.y > maxHeight && direction) || (transform.position.y < minHeight && !direction))
+			direction = !direction;
+		transform.position += (direction ? 1 : -1) * Vector3.up * speed * Time.deltaTime;
 	}
 }
